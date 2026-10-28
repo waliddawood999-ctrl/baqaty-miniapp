@@ -100,7 +100,7 @@
       "<div><b>1</b><span>اختر التطبيق والباقة</span></div>" +
       "<div><b>2</b><span>يفتح لك البوت الطلب جاهز — أكّد بياناتك</span></div>" +
       "<div><b>3</b><span>حوّل وارفع الإيصال، ونفعّل لك " + esc(s.response_short || s.response_time) + "</span></div></div></section>" +
-      '<div class="foot">' + (s.telegram_support ? '<a href="https://t.me/' + esc(s.telegram_support) + '" target="_blank" rel="noopener">💬 الدعم: <bdi dir="ltr">@' + esc(s.telegram_support) + '</bdi></a>' : "") +
+      '<div class="foot">' + (s.telegram_support ? '<a href="https://t.me/' + esc(s.telegram_support) + '" target="_blank" rel="noopener">💬 تليجرام</a>' : "") +
       '<a href="' + esc(s.wa_link) + '" target="_blank" rel="noopener">🟢 واتساب</a>' +
       '<a href="' + esc(s.site_url) + '" target="_blank" rel="noopener">🌐 الموقع</a></div>';
     var q = document.getElementById("q");
@@ -134,9 +134,10 @@
         if (x.email) b.push('<span class="badge">📧 على بريدك</span>');
         if (x.off) b.push('<span class="badge">وفّر ' + x.off + "%</span>");
         return '<button class="plan' + (x.id === pl0.id ? " sel" : "") + '" data-plan="' + x.id + '">' +
-          '<div class="row"><div><h3>' + esc(x.label) + '</h3><div class="dur">' + esc(x.duration) + "</div></div>" +
-          '<div class="price">' + (x.compare ? "<s>" + num(x.compare) + "</s>" : "") + "<b>" + num(x.price) + "</b><span>ر.س</span></div></div>" +
-          (b.length ? '<div class="badges">' + b.join("") + "</div>" : "") + '<span class="radio"></span></button>';
+          '<div class="row"><div class="ptxt"><h3>' + esc(x.label) + '</h3><div class="dur">' + esc(x.duration) + "</div></div>" +
+          '<div class="price">' + (x.compare ? "<s>" + num(x.compare) + "</s>" : "") + "<b>" + num(x.price) + "</b><span>ر.س</span></div>" +
+          '<span class="radio" aria-hidden="true"></span></div>' +
+          (b.length ? '<div class="badges">' + b.join("") + "</div>" : "") + "</button>";
       }).join("") + "</div>" +
       '<div class="info" id="info">' + infoHtml(pl0) + "</div>" +
       (needsEmail ? '<p class="note">📧 بعض الباقات تُفعَّل على بريدك — يطلبه البوت ويبقى خاصًا.</p>' : "") +
@@ -163,7 +164,7 @@
     if (x.warranty) h += '<details><summary>الضمان</summary><div class="body">' + esc(x.warranty) + "</div></details>";
     return h;
   }
-  function buyFor(p, x) { setBuy("اطلب " + x.label + " · " + num(x.price) + " ر.س", function () { order(p, x); }); }
+  function buyFor(p, x) { setBuy("اطلب " + x.label + "\u200F · " + num(x.price) + " ر.س", function () { order(p, x); }); }
 
   /* ---------- routing ---------- */
   function go(slug) {
