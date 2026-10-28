@@ -128,3 +128,4 @@ img{display:block}
 .sec h2{line-height:1.35}
 .app.out .tile{line-height:1}
 .note{line-height:1.6}
+.pnote{margin:0 0 10px;padding:10px 12px;border-radius:12px;background:rgba(255,184,0,.14);font-size:13px;line-height:1.6}

@@ -140,7 +140,7 @@
           (b.length ? '<div class="badges">' + b.join("") + "</div>" : "") + "</button>";
       }).join("") + "</div>" +
       '<div class="info" id="info">' + infoHtml(pl0) + "</div>" +
-      (needsEmail ? '<p class="note">📧 بعض الباقات تُفعَّل على بريدك — يطلبه البوت ويبقى خاصًا.</p>' : "") +
+      (needsEmail ? '<p class="note">📧 باقات الدعوة تتفعّل على إيميلك: البوت يطلبه منك وقت الطلب ويبقى خاص.</p>' : "") +
       '<p class="note">الطلب يكمل داخل البوت: تأكد بياناتك، تحوّل وترسل الإيصال، ونفعّل لك.</p>' +
       ((p.pa || []).length ? '<a class="note wa" href="' + esc(D.store.wa_link + "?text=" + encodeURIComponent("السلام عليكم، أبغى أطلب " + p.name + " من باقاتي وأدفع بعد التفعيل")) +
       '" target="_blank" rel="noopener">💬 تبي تدفع بعد التفعيل؟ <b>تواصل معنا واتساب</b>' +
@@ -159,7 +159,7 @@
     buyFor(p, pl0);
   }
   function infoHtml(x) {
-    var h = "";
+    var h = x.note ? '<p class="pnote">' + esc(x.note) + "</p>" : "";
     if (x.steps && x.steps.length) h += "<details open><summary>طريقة التفعيل</summary><div class=\"body\"><ol>" +
       x.steps.map(function (s) { return "<li>" + esc(s) + "</li>"; }).join("") + "</ol></div></details>";
     if (x.warranty) h += '<details><summary>الضمان</summary><div class="body">' + esc(x.warranty) + "</div></details>";
