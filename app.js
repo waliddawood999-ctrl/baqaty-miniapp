@@ -96,7 +96,7 @@
       "<div><b>1</b><span>اختر التطبيق والباقة</span></div>" +
       "<div><b>2</b><span>يفتح لك البوت الطلب جاهز — أكّد بياناتك</span></div>" +
       "<div><b>3</b><span>حوّل وارفع الإيصال، ونفعّل لك " + esc(s.response_short || s.response_time) + "</span></div></div></section>" +
-      '<div class="foot">' + (s.telegram_support ? '<a href="https://t.me/' + esc(s.telegram_support) + '" target="_blank" rel="noopener">💬 الدعم: @' + esc(s.telegram_support) + '</a>' : "") +
+      '<div class="foot">' + (s.telegram_support ? '<a href="https://t.me/' + esc(s.telegram_support) + '" target="_blank" rel="noopener">💬 الدعم: <bdi dir="ltr">@' + esc(s.telegram_support) + '</bdi></a>' : "") +
       '<a href="' + esc(s.wa_link) + '" target="_blank" rel="noopener">🟢 واتساب</a>' +
       '<a href="' + esc(s.site_url) + '" target="_blank" rel="noopener">🌐 الموقع</a></div>';
     var q = document.getElementById("q");
