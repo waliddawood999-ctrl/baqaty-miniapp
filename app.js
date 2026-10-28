@@ -27,7 +27,6 @@
       : '<img src="' + esc(p.logo) + '" alt="" loading="' + (big ? "eager" : "lazy") + '" decoding="async">';
     return '<span class="tile">' + inner + "</span>";
   }
-  function pafPill() { return '<span class="dot"></span>'; }
 
   /* ---------- buy button (Telegram MainButton or fallback bar) ---------- */
   function setBuy(text, cb) {
@@ -78,7 +77,7 @@
     return '<div class="grid">' + list.map(function (p) {
       return '<button class="app" data-slug="' + esc(p.slug) + '">' + tile(p) +
         "<b>" + esc(p.short || p.name) + "</b>" +
-        "<small>" + (p.paf ? pafPill() : "") + "من <em>" + num(p.from) + "</em> ر.س</small></button>";
+        "<small>" + "من <em>" + num(p.from) + "</em> ر.س</small></button>";
     }).join("") + "</div>";
   }
   function home() {
@@ -88,10 +87,10 @@
       '<header class="hero"><h1>' + esc(s.name) + '</h1><p>' + esc(s.tagline) + '</p>' +
       '<div class="pills"><span class="pill y">' + D.products.length + ' اشتراك</span>' +
       '<span class="pill">⚡ تفعيل ' + esc(s.response_short || s.response_time) + '</span>' +
-      '<span class="pill"><span class="dot"></span>ادفع بعد التفعيل</span></div></header>' +
+      '</div></header>' +
       '<div class="search"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>' +
       '<input id="q" type="search" inputmode="search" autocomplete="off" placeholder="ابحث عن تطبيق…" value="' + esc(state.q) + '"></div>' +
-      '<div class="sec"><h2>كل الاشتراكات</h2><span><span class="dot"></span>= ادفع بعد التفعيل</span></div>' +
+      '<div class="sec"><h2>كل الاشتراكات</h2><span>الأسعار بالريال</span></div>' +
       '<div id="grid">' + gridHtml() + "</div>" +
       '<section class="how"><h3>كيف تطلب؟</h3><div class="steps">' +
       "<div><b>1</b><span>اختر التطبيق والباقة</span></div>" +
@@ -121,13 +120,12 @@
     app.innerHTML =
       '<header class="phero" style="background:linear-gradient(135deg,' + g[0] + "," + g[1] + ')">' + tile(p, true) +
       "<div><h1>" + esc(p.name) + "</h1><p>" + esc(p.lead || p.tagline) + "</p>" +
-      (p.paf ? '<span class="tag"><span class="dot"></span>ادفع بعد التفعيل</span>' : "") + "</div></header>" +
+      "</div></header>" +
       (p.about ? '<p class="about">' + esc(p.about) + "</p>" : "") +
       '<div class="sec"><h2>اختر الباقة</h2><span>' + (plans.length === 1 ? "باقة واحدة" : plans.length === 2 ? "باقتان" : plans.length + " باقات") + "</span></div>" +
       '<div class="plans">' + plans.map(function (x) {
         var b = [];
         if (x.popular) b.push('<span class="badge s">⭐ الأكثر طلبًا</span>');
-        if (x.paf) b.push('<span class="badge g">🟢 ادفع بعد التفعيل</span>');
         if (x.email) b.push('<span class="badge">📧 على بريدك</span>');
         if (x.off) b.push('<span class="badge">وفّر ' + x.off + "%</span>");
         return '<button class="plan' + (x.id === pl0.id ? " sel" : "") + '" data-plan="' + x.id + '">' +
@@ -137,7 +135,9 @@
       }).join("") + "</div>" +
       '<div class="info" id="info">' + infoHtml(pl0) + "</div>" +
       (needsEmail ? '<p class="note">📧 بعض الباقات تُفعَّل على بريدك — يطلبه البوت ويبقى خاصًا.</p>' : "") +
-      '<p class="note">الطلب يكمل داخل البوت: يجهّز لك الباقة وتأكدها بضغطة.</p>';
+      '<p class="note">الطلب يكمل داخل البوت: تأكد بياناتك، تحوّل وترسل الإيصال، ونفعّل لك.</p>' +
+      '<a class="note wa" href="' + esc(D.store.wa_link + "?text=" + encodeURIComponent("السلام عليكم، أبغى أطلب " + p.name + " من باقاتي وأدفع بعد التفعيل")) +
+      '" target="_blank" rel="noopener">💬 تبي تدفع بعد التفعيل؟ <b>تواصل معنا واتساب</b></a>';
     app.querySelectorAll(".plan").forEach(function (el) {
       el.addEventListener("click", function () {
         var id = +el.getAttribute("data-plan");
