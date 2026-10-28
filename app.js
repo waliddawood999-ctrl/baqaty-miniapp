@@ -100,9 +100,9 @@
       "<div><b>1</b><span>اختر التطبيق والباقة</span></div>" +
       "<div><b>2</b><span>يفتح لك البوت الطلب جاهز — أكّد بياناتك</span></div>" +
       "<div><b>3</b><span>حوّل وارفع الإيصال، ونفعّل لك " + esc(s.response_short || s.response_time) + "</span></div></div></section>" +
-      '<div class="foot">' + (s.telegram_support ? '<a href="https://t.me/' + esc(s.telegram_support) + '" target="_blank" rel="noopener">💬 تليجرام</a>' : "") +
-      '<a href="' + esc(s.wa_link) + '" target="_blank" rel="noopener">🟢 واتساب</a>' +
-      '<a href="' + esc(s.site_url) + '" target="_blank" rel="noopener">🌐 الموقع</a></div>';
+      '<div class="foot">' + (s.telegram_support ? '<a href="https://t.me/' + esc(s.telegram_support) + '" target="_blank" rel="noopener">💬 دعم تليجرام</a>' : "") +
+      '<a href="' + esc(s.site_url) + '" target="_blank" rel="noopener">🌐 الموقع</a></div>' +
+      '<a class="foot-wa" href="' + esc(s.wa_link) + '" target="_blank" rel="noopener"><b>🟢 واتساب</b><span>دفع بعد التفعيل لبعض المنتجات</span></a>';
     var q = document.getElementById("q");
     q.addEventListener("input", function () { state.q = q.value; document.getElementById("grid").innerHTML = gridHtml(); });
     q.addEventListener("keydown", function (e) { if (e.key === "Enter") q.blur(); });
@@ -142,8 +142,9 @@
       '<div class="info" id="info">' + infoHtml(pl0) + "</div>" +
       (needsEmail ? '<p class="note">📧 بعض الباقات تُفعَّل على بريدك — يطلبه البوت ويبقى خاصًا.</p>' : "") +
       '<p class="note">الطلب يكمل داخل البوت: تأكد بياناتك، تحوّل وترسل الإيصال، ونفعّل لك.</p>' +
-      '<a class="note wa" href="' + esc(D.store.wa_link + "?text=" + encodeURIComponent("السلام عليكم، أبغى أطلب " + p.name + " من باقاتي وأدفع بعد التفعيل")) +
-      '" target="_blank" rel="noopener">💬 تبي تدفع بعد التفعيل؟ <b>تواصل معنا واتساب</b></a>';
+      ((p.pa || []).length ? '<a class="note wa" href="' + esc(D.store.wa_link + "?text=" + encodeURIComponent("السلام عليكم، أبغى أطلب " + p.name + " من باقاتي وأدفع بعد التفعيل")) +
+      '" target="_blank" rel="noopener">💬 تبي تدفع بعد التفعيل؟ <b>تواصل معنا واتساب</b>' +
+      (p.pa.length < plans.length ? ' <small>(لباقة <bdi>' + esc(p.pa.join("، ")) + "</bdi>)</small>" : "") + "</a>" : "");
     app.querySelectorAll(".plan").forEach(function (el) {
       el.addEventListener("click", function () {
         var id = +el.getAttribute("data-plan");
