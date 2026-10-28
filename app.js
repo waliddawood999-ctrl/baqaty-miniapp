@@ -71,13 +71,17 @@
   function gridHtml() {
     var q = norm(state.q);
     var list = D.products.filter(function (p) { return match(p, q); });
-    if (!list.length) {
+    var out = (D.soldout || []).filter(function (p) { return match(p, q); });
+    if (!list.length && !out.length) {
       return '<div class="empty">ما لقينا «' + esc(state.q) + '»<br><a href="' + esc(D.store.wa_link) + '" target="_blank" rel="noopener">اسألنا على واتساب</a></div>';
     }
     return '<div class="grid">' + list.map(function (p) {
       return '<button class="app" data-slug="' + esc(p.slug) + '">' + tile(p) +
         "<b>" + esc(p.short || p.name) + "</b>" +
         "<small>" + "من <em>" + num(p.from) + "</em> ر.س</small></button>";
+    }).join("") + out.map(function (p) {
+      return '<div class="app out" aria-disabled="true"><span class="tile"><span class="ltr">' + esc((p.name || "?").charAt(0)) + "</span></span>" +
+        "<b>" + esc(p.name) + '</b><span class="badge r">نفد</span></div>';
     }).join("") + "</div>";
   }
   function home() {
@@ -172,7 +176,7 @@
     if (m) product(m[1]); else home();
   }
   app.addEventListener("click", function (e) {
-    var a = e.target.closest && e.target.closest(".app");
+    var a = e.target.closest && e.target.closest(".app[data-slug]");
     if (a) { haptic("light"); location.hash = "#/p/" + a.getAttribute("data-slug"); }
   });
   window.addEventListener("hashchange", route);
